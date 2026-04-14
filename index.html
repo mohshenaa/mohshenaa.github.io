@@ -25,7 +25,11 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
     <script>
-      eruda.init();
+      try {
+        eruda.init();
+      } catch (e) {
+        console.log("eruda not loaded");
+      }
     </script>
     <style>
       * {
@@ -50,9 +54,6 @@
       }
 
       .container {
-        /* max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px; */
         width: 90%;
         margin: auto;
       }
@@ -512,10 +513,9 @@
         border-top-color: #1e293b;
       }
 
-      /* Animations */
+      /* Animations for About & Skills sections (fade-up) */
       .about-section,
-      .skills-section,
-      .projects-section {
+      .skills-section {
         opacity: 0;
         transform: translateY(40px);
         transition:
@@ -524,8 +524,22 @@
       }
 
       .about-section.show,
-      .skills-section.show,
-      .projects-section.show {
+      .skills-section.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Projects section itself is always visible (no fade on container) */
+      /* But each project card will have its own fade-up animation */
+      .project-card {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+
+      .project-card.show {
         opacity: 1;
         transform: translateY(0);
       }
@@ -579,7 +593,7 @@
     </style>
   </head>
   <body>
-    <!-- ========== NAVBAR (inlined) ========== -->
+    <!-- ========== NAVBAR ========== -->
     <nav class="navbar">
       <div class="nav-left">
         <div class="profile-img">
@@ -691,8 +705,8 @@
       <div class="container">
         <h2>Projects</h2>
         <div class="grid">
-          <!-- Project 1 -->
-          <div class="card">
+          <!-- Project 1 (added class project-card) -->
+          <div class="card project-card">
             <p style="text-align: center">Madrasha Management</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal; padding-top: 0">
@@ -720,7 +734,7 @@
             </div>
           </div>
           <!-- Project 2 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">PathWay Solution</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">
@@ -744,7 +758,7 @@
             </div>
           </div>
           <!-- Project 3 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Store Management</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">
@@ -772,7 +786,7 @@
             </div>
           </div>
           <!-- Project 4 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Hotal Management System</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">
@@ -799,7 +813,7 @@
             </div>
           </div>
           <!-- Project 5 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Room Booking System</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">
@@ -826,9 +840,8 @@
               >
             </div>
           </div>
-
           <!-- Project 6 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Portfolio</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">
@@ -853,9 +866,8 @@
               >
             </div>
           </div>
-
           <!-- Project 7 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Transport Manage System</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">
@@ -882,9 +894,8 @@
               >
             </div>
           </div>
-
           <!-- Project 8 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Transport Manage System</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">
@@ -907,9 +918,8 @@
               >
             </div>
           </div>
-
           <!-- Project 9 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Transport Manage System</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">
@@ -932,9 +942,8 @@
               >
             </div>
           </div>
-
           <!-- Project 10 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Room Booking System</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">
@@ -961,9 +970,8 @@
               >
             </div>
           </div>
-
           <!-- Project 11 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Selfcare meets beautify</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">
@@ -989,9 +997,8 @@
               >
             </div>
           </div>
-
           <!-- Project 12 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Ludo</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">Html, css, js</p>
@@ -1007,9 +1014,8 @@
               >
             </div>
           </div>
-
           <!-- Project 13 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">Calculator</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">Html, css, js</p>
@@ -1029,9 +1035,8 @@
               >
             </div>
           </div>
-
           <!-- Project 14 -->
-          <div class="card">
+          <div class="card project-card">
             <p style="text-align: center">ToDo</p>
             <hr />
             <p style="font-size: 0.9rem; font-weight: normal">Angular</p>
@@ -1162,7 +1167,6 @@
         const navLinks = document.getElementById("navLinks");
         const menuToggle = document.querySelector(".menu-toggle");
 
-        // If menu is open and click is outside both the navLinks and the toggle button
         if (
           navLinks.classList.contains("active") &&
           !navLinks.contains(event.target) &&
@@ -1178,14 +1182,6 @@
           document.getElementById("navLinks").classList.remove("active");
         });
       });
-
-      // Fallback for Projects section on mobile
-      setTimeout(() => {
-        const projectsSec = document.querySelector(".projects-section");
-        if (projectsSec && !projectsSec.classList.contains("show")) {
-          projectsSec.classList.add("show");
-        }
-      }, 1000);
 
       // ========== ADVANCED TYPEWRITER (multiple roles) ==========
       const roles = [".Net Developer", "Full Stack Enthusiast"];
@@ -1218,26 +1214,38 @@
       }
       typeEffect();
 
-      // ========== SCROLL REVEAL ANIMATION (works on mobile) ==========
-      document.addEventListener("DOMContentLoaded", function () {
-        const sections = document.querySelectorAll(
-          ".about-section, .skills-section, .projects-section",
-        );
+      // ========== SCROLL REVEAL ANIMATION ==========
+      // Animate About and Skills sections (whole section fade-up)
+      const sections = document.querySelectorAll(
+        ".about-section, .skills-section",
+      );
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+              sectionObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+      sections.forEach((section) => sectionObserver.observe(section));
 
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.1 },
-        );
-
-        sections.forEach((section) => observer.observe(section));
-      });
+      // Animate each project card individually as they come into view
+      const projectCards = document.querySelectorAll(".project-card");
+      const cardObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+              cardObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+      projectCards.forEach((card) => cardObserver.observe(card));
 
       // ========== CONTACT FORM VALIDATION (jQuery) ==========
       $("#contactForm").validate({
@@ -1255,7 +1263,6 @@
         errorElement: "span",
         errorClass: "error",
         submitHandler: function (form) {
-          // Simulate sending (pure front-end demo)
           const nameVal = $("#name").val();
           $("#formStatus").html(
             `<span style="color:#22c55e;">✨ Thanks ${nameVal}, your message has been sent! I'll reply soon.</span>`,
