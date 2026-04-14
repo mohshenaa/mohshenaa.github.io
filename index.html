@@ -23,6 +23,10 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <script>
+      eruda.init();
+    </script>
     <style>
       * {
         margin: 0;
@@ -515,8 +519,8 @@
         opacity: 0;
         transform: translateY(40px);
         transition:
-          opacity 0.9s ease,
-          transform 0.9s ease;
+          opacity 0.8s ease,
+          transform 0.8s ease;
       }
 
       .about-section.show,
@@ -674,7 +678,7 @@
               </tr>
               <tr>
                 <td>Hosting</td>
-                <td>Netlify, Render, Github, Azure(basic)</td>
+                <td>Netlify, Render, Github</td>
               </tr>
             </tbody>
           </table>
@@ -1175,6 +1179,14 @@
         });
       });
 
+      // Fallback for Projects section on mobile
+      setTimeout(() => {
+        const projectsSec = document.querySelector(".projects-section");
+        if (projectsSec && !projectsSec.classList.contains("show")) {
+          projectsSec.classList.add("show");
+        }
+      }, 1000);
+
       // ========== ADVANCED TYPEWRITER (multiple roles) ==========
       const roles = [".Net Developer", "Full Stack Enthusiast"];
       let roleIndex = 0,
@@ -1206,22 +1218,26 @@
       }
       typeEffect();
 
-      // ========== SCROLL REVEAL ANIMATION ==========
-      const sections = document.querySelectorAll(
-        ".about-section, .skills-section, .projects-section",
-      );
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("show");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.2 },
-      );
-      sections.forEach((section) => observer.observe(section));
+      // ========== SCROLL REVEAL ANIMATION (works on mobile) ==========
+      document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll(
+          ".about-section, .skills-section, .projects-section",
+        );
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 },
+        );
+
+        sections.forEach((section) => observer.observe(section));
+      });
 
       // ========== CONTACT FORM VALIDATION (jQuery) ==========
       $("#contactForm").validate({
